@@ -1,17 +1,24 @@
 import './App.css'
 import {useDispatch, useSelector} from "react-redux";
 import {ADD_ITEM, COUNTER} from './todoStore/actions.js';
+import {useRef} from "react";
 
 function App() {
     const todoList = useSelector(state => state.todo);
     const dispatch = useDispatch();
 
+    const todoRef = useRef('');
     const handleSubmit = (event) => {
         event.preventDefault();
-        const todoItem = event.target.todo.value.trim();
-        dispatch({type: ADD_ITEM, payload: todoItem});
-        dispatch({type: COUNTER});
-        event.target.todo.value = '';
+        const todoItem = todoRef.current.value.trim();
+        console.log('todo: ', todoItem);
+        if(todoItem) {
+            dispatch({type: ADD_ITEM, payload: todoItem});
+            dispatch({type: COUNTER});
+            todoRef.current.value = '';
+        } else {
+            alert('The task cannot be empty');
+        }
     }
 
     return (
@@ -19,7 +26,7 @@ function App() {
             <p>Todo-list</p>
             <div className="add-form">
                 <form onSubmit={handleSubmit}>
-                    <input type="text" name="todo"/>
+                    <input type="text" name="todo" ref={todoRef} />
                     <button type="submit">Add</button>
                 </form>
             </div>
