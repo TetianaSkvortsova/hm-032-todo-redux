@@ -11,7 +11,6 @@ function App() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const todoItem = todoRef.current.value.trim();
-        console.log('todo: ', todoItem);
         if(todoItem) {
             dispatch({type: ADD_ITEM, payload: todoItem});
             dispatch({type: COUNTER});
@@ -26,7 +25,7 @@ function App() {
             <p>Todo-list</p>
             <div className="add-form">
                 <form onSubmit={handleSubmit}>
-                    <input type="text" name="todo" ref={todoRef} />
+                    <input type="text" name="todo" ref={todoRef} aria-label="Todo item input" />
                     <button type="submit">Add</button>
                 </form>
             </div>

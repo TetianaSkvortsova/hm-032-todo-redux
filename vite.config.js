@@ -4,5 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/hm-032-todo-redux/'
+  base: '/hm-032-todo-redux/',
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./src/todoStore/tests/setupTests.js'],
+  },
 })
